@@ -7,7 +7,9 @@
   @try {
     NSString *urlHttpMethod = command.arguments[0];
     NSString *urlString = command.arguments[1];
-    NSString *postString = command.arguments[2];
+    NSString *contentType = command.arguments[2];
+    NSString *postString = command.arguments[3];
+    
     NSURL *url = [NSURL URLWithString:urlString];
 
     NSData *postData = [postString dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES]; 
@@ -17,7 +19,7 @@
     [urlRequest setHTTPMethod:urlHttpMethod];
     [urlRequest setValue:postLength forHTTPHeaderField:@"Content-Length"]; 
     [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [urlRequest setValue:@"application/vnd.mtp.cookie.v1+json" forHTTPHeaderField:@"Content-Type"]
+    [urlRequest setValue:contentType forHTTPHeaderField:@"Content-Type"]
     [urlRequest setHTTPBody:postData];
 
     NSURLSession *urlSession = [NSURLSession sharedSession];
